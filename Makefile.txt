@@ -1,0 +1,25 @@
+CC = clang++
+CFLAGS = -g -Wall
+
+PROG = ObjectManager
+HDRS = ObjectManager.h
+SRCS = ObjectManager.c main.c
+OBJDIR = objects
+
+OBJS = $(OBJDIR)/ObjectManager.o $(OBJDIR)/main.o 
+
+$(PROG): $(OBJDIR) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(PROG)
+
+$(OBJDIR)/ObjectManager.o: ObjectManager.c $(HDRS) $(OBJDIR)
+	$(CC) $(CFLAGS) -c ObjectManager.c -o $(OBJDIR)/ObjectManager.o
+
+$(OBJDIR)/main.o: main.c $(HDRS) $(OBJDIR)
+	$(CC) $(CFLAGS) -c main.c -o $(OBJDIR)/main.o
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
+
+clean:
+	rm -fr $(PROG) $(OBJS) $(OBJDIR)
+
